@@ -1,3 +1,2 @@
-export function helloWorld() {
-  return 'Hello World!';
-}
+import plugin from './ApolloServerPluginOperationRegistry';
+export default plugin;

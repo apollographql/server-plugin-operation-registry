@@ -10,7 +10,9 @@ const config: Config.InitialOptions = {
       tsconfig: 'tsconfig.test.json',
     },
   },
+  testRegex: '/__tests__/.*\\.test\\.(js|ts)$',
   verbose: true,
+  setupFiles: ['<rootDir>/src/__tests__/jestSetup.ts'],
 };
 
 export default config;
