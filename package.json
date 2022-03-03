@@ -1,16 +1,16 @@
 {
-  "name": "@apollo/operation-registry-plugin",
-  "description": "Apollo Server operation registry",
+  "name": "@apollo/server-plugin-operation-registry",
+  "description": "Apollo Server operation registry plugin",
   "version": "3.5.2",
   "author": "Apollo <packages@apollographql.com>",
   "repository": {
     "type": "git",
-    "url": "apollographql/operation-registry-plugin"
+    "url": "apollographql/server-plugin-operation-registry"
   },
   "license": "MIT",
-  "homepage": "https://github.com/apollographql/operation-registry-plugin#readme",
+  "homepage": "https://github.com/apollographql/server-plugin-operation-registry#readme",
   "bugs": {
-    "url": "https://github.com/apollographql/operation-registry-plugin/issues"
+    "url": "https://github.com/apollographql/server-plugin-operation-registry/issues"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
