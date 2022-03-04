@@ -9,7 +9,7 @@ In order to enable safelisting, follow the [step by step guide in the Apollo doc
 The following example shows basic usage of the plugin with Apollo Server. First, add the plugin to your project's `package.json`:
 
 ```bash
-npm install apollo-server-plugin-operation-registry
+npm install @apollo/server-plugin-operation-registry
 ```
 
 Then, ensure Apollo Server has access to an [API key](https://www.apollographql.com/docs/studio/operation-registry/#6-start-apollo-server-with-apollo-studio-enabled), for example as the `APOLLO_KEY` environment variable:
@@ -26,7 +26,7 @@ const server = new ApolloServer({
   resolvers,
   subscriptions: false,
   plugins: [
-    require("apollo-server-plugin-operation-registry")({
+    require("@apollo/server-plugin-operation-registry")({
       forbidUnregisteredOperations: true
     })
   ]
@@ -47,7 +47,7 @@ const server = new ApolloServer({
   gateway,
   subscriptions: false,
   plugins: [
-    require("apollo-server-plugin-operation-registry")({
+    require("@apollo/server-plugin-operation-registry")({
       forbidUnregisteredOperations: true
     })
   ]
@@ -66,7 +66,7 @@ Clients can register their operations to a specific variant, so the plugin conta
 ```js
 const server = new ApolloServer({
   plugins: [
-    require("apollo-server-plugin-operation-registry")({
+    require("@apollo/server-plugin-operation-registry")({
       graphVariant: "production"
     })
   ]
