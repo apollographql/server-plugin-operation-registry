@@ -1,5 +1,11 @@
 # @apollo/server-plugin-operation-registry
 
+## 3.5.4
+
+### Patch Changes
+
+- [#8](https://github.com/apollographql/server-plugin-operation-registry/pull/8) [`6c7b54b`](https://github.com/apollographql/server-plugin-operation-registry/commit/6c7b54b4f1b429a73083a9ec622a5f420c2f1665) Thanks [@rubencodes](https://github.com/rubencodes)! - Fix an order of operations error when resolving the manifest and storage secret base URLs
+
 ## 3.5.3
 
 ### Patch Changes
