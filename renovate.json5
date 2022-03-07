@@ -24,7 +24,7 @@
     // versions we support.
     {
       "matchPackageNames": ["@types/node"],
-      "allowedVersions": "14.x"
+      "allowedVersions": "12.x"
     },
     // make-fetch-happen is used by the op reg plugin, which uses a cache API
     // that is removed in v9.
