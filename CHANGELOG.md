@@ -1,5 +1,11 @@
 # @apollo/server-plugin-operation-registry
 
+## 3.5.5
+
+### Patch Changes
+
+- [#36](https://github.com/apollographql/server-plugin-operation-registry/pull/36) [`792d52f`](https://github.com/apollographql/server-plugin-operation-registry/commit/792d52fb6d4a560e823d5d79181ca47a256f973d) Thanks [@trevor-scheer](https://github.com/trevor-scheer)! - Add tsconfig files to published output
+
 ## 3.5.4
 
 ### Patch Changes
