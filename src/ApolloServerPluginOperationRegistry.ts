@@ -1,27 +1,21 @@
-import { pluginName, getStoreKey, signatureForLogging } from './common';
-import type {
-  ApolloServerPlugin,
-  GraphQLServiceContext,
-  GraphQLRequestListener,
-  GraphQLRequestContext,
-  GraphQLServerListener,
-} from 'apollo-server-plugin-base';
 import {
-  /**
-   * We alias these to different names entirely since the user-facing values
-   * which are present in their manifest (signature and document) are probably
-   * the most important concepts to rally around right now, in terms of
-   * approachability to the implementor.  A future version of the
-   * `apollo-graphql` package should rename them to make this more clear.
-   */
-  operationHash as operationSignature,
-  defaultOperationRegistrySignature as defaultOperationRegistryNormalization,
-} from 'apollo-graphql';
-import { ForbiddenError, ApolloError } from 'apollo-server-errors';
-import Agent from './agent';
-import { InMemoryLRUCache } from 'apollo-server-caching';
-import loglevel from 'loglevel';
+  ApolloError,
+  ApolloServerPlugin,
+  BaseContext,
+  ForbiddenError,
+  GraphQLRequestContext,
+  GraphQLRequestListener,
+  GraphQLServerListener,
+  GraphQLServiceContext,
+  LRUCacheStore,
+} from '@apollo/server';
+import { createHash } from '@apollo/utils.createhash';
+import { defaultOperationRegistrySignature as defaultOperationRegistryNormalization } from '@apollo/utils.operationregistrysignature';
 import type { fetch } from 'apollo-server-env';
+import Keyv from 'keyv';
+import loglevel from 'loglevel';
+import Agent from './agent';
+import { getStoreKey, pluginName, signatureForLogging } from './common';
 
 type ForbidUnregisteredOperationsPredicate = (
   requestContext: GraphQLRequestContext,
@@ -59,9 +53,15 @@ export interface Options {
   ) => void;
 }
 
-export default function plugin(options: Options = Object.create(null)) {
+function operationSignature(operationString: string) {
+  return createHash('sha256').update(operationString).digest('hex');
+}
+
+export default function plugin<TContext extends BaseContext>(
+  options: Options = Object.create(null),
+) {
   let agent: Agent;
-  let store: InMemoryLRUCache;
+  let store: Keyv<string>;
 
   // Setup logging facilities, scoped under the appropriate name.
   const logger = loglevel.getLogger(`apollo-server:${pluginName}`);
@@ -92,7 +92,7 @@ for observability purposes, but all operations will be permitted.`,
   // time depending on the use case.
   Object.freeze(options);
 
-  return (): ApolloServerPlugin => ({
+  return (): ApolloServerPlugin<TContext> => ({
     async serverWillStart({
       apollo,
     }: GraphQLServiceContext): Promise<GraphQLServerListener> {
@@ -114,9 +114,11 @@ for observability purposes, but all operations will be permitted.`,
 
       logger.debug(`Operation registry is configured for '${graphRef}'.`);
 
-      // An LRU store with no `maxSize` is effectively an InMemoryStore and
-      // exactly what we want for this purpose.
-      store = new InMemoryLRUCache({ maxSize: Infinity });
+      store = new Keyv<string>({
+        store: new LRUCacheStore({
+          maxSize: 100000000,
+        }),
+      });
 
       logger.debug('Initializing operation registry agent...');
 
@@ -141,7 +143,7 @@ for observability purposes, but all operations will be permitted.`,
       };
     },
 
-    async requestDidStart(): Promise<GraphQLRequestListener<any>> {
+    async requestDidStart(): Promise<GraphQLRequestListener<TContext>> {
       return {
         async didResolveOperation(requestContext) {
           const documentFromRequestContext = requestContext.document;

@@ -1,6 +1,4 @@
 import nock from 'nock';
-import type { InMemoryLRUCache } from 'apollo-server-caching';
-import { resolve as urlResolve } from 'url';
 import {
   defaultAgentOptions,
   genericServiceID,
@@ -16,12 +14,13 @@ import {
 import Agent, { AgentOptions } from '../agent';
 import type { Operation } from '../ApolloServerPluginOperationRegistry';
 import {
-  fakeTestBaseUrl,
   getStoreKey,
   getOperationManifestUrl,
   urlOperationManifestBase,
 } from '../common';
 import type { Logger } from 'apollo-server-types';
+import type Keyv from 'keyv';
+import { URL } from 'url';
 
 // These get a bit verbose within the tests below, so we use this as a
 // sample store to pick and grab from.
@@ -65,7 +64,7 @@ describe('Agent', () => {
 
   describe('with manifest', () => {
     const forCleanup: {
-      store?: InMemoryLRUCache;
+      store?: Keyv<string>;
       agent?: import('../agent').default;
     }[] = [];
 
@@ -112,7 +111,7 @@ describe('Agent', () => {
       }
 
       async function expectStoreHasOperationEach(
-        store: InMemoryLRUCache,
+        store: Keyv<string>,
         letters: string[],
       ) {
         for (const letter of letters) {
@@ -160,8 +159,7 @@ describe('Agent', () => {
         await createAgent({ logger }).start();
 
         expect(relevantLogs[0][0]).toBe(
-          `Checking for manifest changes at ${urlResolve(
-            fakeTestBaseUrl,
+          `Checking for manifest changes at ${new URL(
             getOperationManifestUrl(
               genericServiceID,
               genericStorageSecret,

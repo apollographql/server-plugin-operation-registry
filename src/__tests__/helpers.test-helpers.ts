@@ -8,13 +8,13 @@ import {
   fakeTestBaseUrl,
 } from '../common';
 import nock from 'nock';
-import { InMemoryLRUCache } from 'apollo-server-caching';
 import type {
   Operation,
   OperationManifest,
 } from '../ApolloServerPluginOperationRegistry';
+import Keyv from 'keyv';
 
-export const defaultStore = () => new InMemoryLRUCache();
+export const defaultStore = () => new Keyv();
 
 export const genericStorageSecret = 'someStorageSecret';
 export const genericServiceID = 'test-service';

@@ -1,18 +1,17 @@
-import {
-  getStoreKey,
-  pluginName,
-  getStorageSecretUrl,
-  getOperationManifestUrl,
-} from './common';
-
+import type { ApolloConfig, WithRequired } from '@apollo/server';
+import type { Logger } from '@apollo/utils.logger';
+import type { fetch, RequestInit, Response } from 'apollo-server-env';
+import type Keyv from 'keyv';
 import loglevel from 'loglevel';
 import fetcher from 'make-fetch-happen';
-import { HttpRequestCache } from './cache';
-
-import type { InMemoryLRUCache } from 'apollo-server-caching';
 import type { OperationManifest } from './ApolloServerPluginOperationRegistry';
-import type { Logger, ApolloConfig, WithRequired } from 'apollo-server-types';
-import type { Response, RequestInit, fetch } from 'apollo-server-env';
+import { HttpRequestCache } from './cache';
+import {
+  getOperationManifestUrl,
+  getStorageSecretUrl,
+  getStoreKey,
+  pluginName,
+} from './common';
 
 const DEFAULT_POLL_SECONDS: number = 30;
 const SYNC_WARN_TIME_SECONDS: number = 60;
@@ -22,7 +21,7 @@ export interface AgentOptions {
   fetcher?: typeof fetch;
   pollSeconds?: number;
   apollo: WithRequired<ApolloConfig, 'keyHash' | 'graphRef'>;
-  store: InMemoryLRUCache;
+  store: Keyv<string>;
 }
 
 type SignatureStore = Set<string>;

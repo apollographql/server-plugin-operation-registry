@@ -1,32 +1,25 @@
+import {
+  ApolloConfigInput,
+  ApolloServer,
+  ApolloServerPluginUsageReportingDisabled,
+  GraphQLRequest,
+} from '@apollo/server';
+import { createHash } from '@apollo/utils.createhash';
+import { defaultOperationRegistrySignature as defaultOperationRegistryNormalization } from '@apollo/utils.operationregistrysignature';
+import { print } from 'graphql';
+import gql from 'graphql-tag';
+import loglevel from 'loglevel';
 import plugin, { Options } from '../ApolloServerPluginOperationRegistry';
 import {
-  ApolloServerBase,
-  ApolloServerPluginUsageReportingDisabled,
-} from 'apollo-server-core';
-
-import {
-  /**
-   * We alias these to different names entirely since the user-facing values
-   * which are present in their manifest (signature and document) are probably
-   * the most important concepts to rally around right now, in terms of
-   * approachability to the implementor.  A future version of the
-   * `apollo-graphql` package should rename them to make this more clear.
-   */
-  defaultOperationRegistrySignature as defaultOperationRegistryNormalization,
-  operationHash as operationSignature,
-} from 'apollo-graphql';
-import gql from 'graphql-tag';
-import { print } from 'graphql';
-import loglevel from 'loglevel';
-import {
-  hashApiKey,
-  nockStorageSecret,
-  nockGoodManifestsUnderStorageSecret,
   genericStorageSecret,
+  hashApiKey,
+  nockGoodManifestsUnderStorageSecret,
+  nockStorageSecret,
 } from './helpers.test-helpers';
-import { Headers } from 'apollo-server-env';
-import type { GraphQLRequest } from 'apollo-server-plugin-base';
-import type { ApolloConfigInput } from 'apollo-server-types';
+
+function operationSignature(operationString: string) {
+  return createHash('sha256').update(operationString).digest('hex');
+}
 
 // While not ideal, today, Apollo Server has a very real expectation of an HTTP
 // request context.  That will change in the future.  While we can sometimes
@@ -38,7 +31,7 @@ import type { ApolloConfigInput } from 'apollo-server-types';
 const mockHttpRequestContextForExecuteOperation: Required<
   Pick<GraphQLRequest, 'http'>
 > = {
-  http: { method: 'GET', headers: new Headers(), url: '/mocked' },
+  http: { method: 'GET', headers: new Map(), searchParams: null, body: null },
 };
 
 // Hacky way of turning off debug and info logs during tests.
@@ -94,7 +87,7 @@ describe('Operation registry plugin', () => {
         nockGoodManifestsUnderStorageSecret(graphId, genericStorageSecret, [
           /* Intentionally empty! */
         ]);
-        const server = new ApolloServerBase({
+        const server = new ApolloServer({
           typeDefs,
           mockEntireSchema: true,
           apollo,
@@ -142,7 +135,7 @@ describe('Operation registry plugin', () => {
             signature: queryHash,
           },
         ]);
-        const server = new ApolloServerBase({
+        const server = new ApolloServer({
           typeDefs,
           mockEntireSchema: true,
           apollo,
@@ -177,7 +170,7 @@ describe('Operation registry plugin', () => {
         nockGoodManifestsUnderStorageSecret(graphId, genericStorageSecret, [
           /* Intentionally empty! */
         ]);
-        const server = new ApolloServerBase({
+        const server = new ApolloServer({
           typeDefs,
           mockEntireSchema: true,
           apollo,
@@ -227,7 +220,7 @@ describe('Operation registry plugin', () => {
         nockGoodManifestsUnderStorageSecret(graphId, genericStorageSecret, [
           /* Intentionally empty! */
         ]);
-        const server = new ApolloServerBase({
+        const server = new ApolloServer({
           typeDefs,
           mockEntireSchema: true,
           apollo,
@@ -262,7 +255,7 @@ describe('Operation registry plugin', () => {
             signature: queryHash,
           },
         ]);
-        const server = new ApolloServerBase({
+        const server = new ApolloServer({
           typeDefs,
           mockEntireSchema: true,
           apollo,

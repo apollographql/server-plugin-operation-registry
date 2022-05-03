@@ -30,6 +30,7 @@
     "watch": "tsc --build --watch"
   },
   "devDependencies": {
+    "@apollo/utils.logger": "^1.0.0",
     "@changesets/changelog-github": "0.4.4",
     "@changesets/cli": "2.22.0",
     "@types/jest": "27.4.1",
@@ -46,12 +47,11 @@
     "typescript": "4.6.3"
   },
   "dependencies": {
-    "apollo-graphql": "^0.9.5",
-    "apollo-server-caching": "^3.3.0",
+    "@apollo/server": "https://pkg.csb.dev/apollographql/apollo-server/commit/d7ad7e12/@apollo/server",
+    "@apollo/utils.operationregistrysignature": "^1.1.0",
     "apollo-server-env": "^4.2.1",
-    "apollo-server-errors": "^3.3.1",
-    "apollo-server-plugin-base": "^3.5.1",
     "fast-json-stable-stringify": "^2.1.0",
+    "keyv": "^4.2.2",
     "loglevel": "^1.8.0",
     "make-fetch-happen": "^8.0.9"
   },
