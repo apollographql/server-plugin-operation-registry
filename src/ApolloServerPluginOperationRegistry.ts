@@ -1,4 +1,9 @@
-import { pluginName, getStoreKey, signatureForLogging, operationHash } from './common';
+import {
+  pluginName,
+  getStoreKey,
+  signatureForLogging,
+  operationHash,
+} from './common';
 import type {
   ApolloServerPlugin,
   GraphQLServiceContext,

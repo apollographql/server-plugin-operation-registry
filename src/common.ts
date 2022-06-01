@@ -1,4 +1,4 @@
-import { createHash } from "@apollo/utils.createhash";
+import { createHash } from '@apollo/utils.createhash';
 
 export const pluginName: string = require('../package.json').name;
 
@@ -52,5 +52,5 @@ export function signatureForLogging(signature: string): string {
 }
 
 export function operationHash(operation: string) {
-  return createHash("sha256").update(operation).digest("hex");
+  return createHash('sha256').update(operation).digest('hex');
 }
