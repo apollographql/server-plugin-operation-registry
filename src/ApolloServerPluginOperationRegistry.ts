@@ -1,4 +1,9 @@
-import { pluginName, getStoreKey, signatureForLogging } from './common';
+import {
+  pluginName,
+  getStoreKey,
+  signatureForLogging,
+  operationHash,
+} from './common';
 import type {
   ApolloServerPlugin,
   GraphQLServiceContext,
@@ -6,17 +11,7 @@ import type {
   GraphQLRequestContext,
   GraphQLServerListener,
 } from 'apollo-server-plugin-base';
-import {
-  /**
-   * We alias these to different names entirely since the user-facing values
-   * which are present in their manifest (signature and document) are probably
-   * the most important concepts to rally around right now, in terms of
-   * approachability to the implementor.  A future version of the
-   * `apollo-graphql` package should rename them to make this more clear.
-   */
-  operationHash as operationSignature,
-  defaultOperationRegistrySignature as defaultOperationRegistryNormalization,
-} from 'apollo-graphql';
+import { operationRegistrySignature } from '@apollo/utils.operationregistrysignature';
 import { ForbiddenError, ApolloError } from 'apollo-server-errors';
 import Agent from './agent';
 import { InMemoryLRUCache } from 'apollo-server-caching';
@@ -151,7 +146,7 @@ for observability purposes, but all operations will be permitted.`,
             throw new Error('Unable to access store.');
           }
 
-          const normalizedDocument = defaultOperationRegistryNormalization(
+          const normalizedDocument = operationRegistrySignature(
             documentFromRequestContext,
 
             // XXX The `operationName` is set from the AST, not from the
@@ -167,7 +162,7 @@ for observability purposes, but all operations will be permitted.`,
             requestContext.operationName || '',
           );
 
-          const signature = operationSignature(normalizedDocument);
+          const signature = operationHash(normalizedDocument);
 
           if (!signature) {
             throw new ApolloError('No document.');

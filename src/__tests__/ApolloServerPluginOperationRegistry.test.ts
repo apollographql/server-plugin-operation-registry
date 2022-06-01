@@ -3,18 +3,8 @@ import {
   ApolloServerBase,
   ApolloServerPluginUsageReportingDisabled,
 } from 'apollo-server-core';
-
-import {
-  /**
-   * We alias these to different names entirely since the user-facing values
-   * which are present in their manifest (signature and document) are probably
-   * the most important concepts to rally around right now, in terms of
-   * approachability to the implementor.  A future version of the
-   * `apollo-graphql` package should rename them to make this more clear.
-   */
-  defaultOperationRegistrySignature as defaultOperationRegistryNormalization,
-  operationHash as operationSignature,
-} from 'apollo-graphql';
+import { operationRegistrySignature } from '@apollo/utils.operationregistrysignature';
+import { operationHash } from '../common';
 import gql from 'graphql-tag';
 import { print } from 'graphql';
 import loglevel from 'loglevel';
@@ -80,11 +70,11 @@ describe('Operation registry plugin', () => {
       }
     `;
 
-    const normalizedQueryDocument = defaultOperationRegistryNormalization(
+    const normalizedQueryDocument = operationRegistrySignature(
       query,
       'HelloFam',
     );
-    const queryHash = operationSignature(normalizedQueryDocument);
+    const queryHash = operationHash(normalizedQueryDocument);
 
     describe('onUnregisterOperation', () => {
       it('is called when unregistered operation received', async () => {
