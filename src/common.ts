@@ -1,3 +1,5 @@
+import { createHash } from "@apollo/utils.createhash";
+
 export const pluginName: string = require('../package.json').name;
 
 export const envOverrideOperationManifest =
@@ -47,4 +49,8 @@ export function signatureForLogging(signature: string): string {
     return '<non-string>';
   }
   return signature.substring(0, 8);
+}
+
+export function operationHash(operation: string) {
+  return createHash("sha256").update(operation).digest("hex");
 }

@@ -47,7 +47,8 @@
     "typescript": "4.7.2"
   },
   "dependencies": {
-    "apollo-graphql": "^0.9.5",
+    "@apollo/utils.createhash": "^1.1.0",
+    "@apollo/utils.operationregistrysignature": "^1.1.0",
     "apollo-server-caching": "^3.3.0",
     "apollo-server-env": "^4.2.1",
     "apollo-server-errors": "^3.3.1",
@@ -55,6 +56,9 @@
     "fast-json-stable-stringify": "^2.1.0",
     "loglevel": "^1.8.0",
     "make-fetch-happen": "^8.0.9"
+  },
+  "peerDependencies": {
+    "graphql": "14.x || 15.x || 16.x"
   },
   "volta": {
     "node": "16.15.0",
