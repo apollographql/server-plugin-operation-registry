@@ -1,5 +1,11 @@
 # @apollo/server-plugin-operation-registry
 
+## 3.5.6
+
+### Patch Changes
+
+- [#68](https://github.com/apollographql/server-plugin-operation-registry/pull/68) [`c585bf2`](https://github.com/apollographql/server-plugin-operation-registry/commit/c585bf20e3b39ff6d82c0afbea2a1af68199b825) Thanks [@trevor-scheer](https://github.com/trevor-scheer)! - Remove the apollo-graphql dependency in favor of equivalent apollo-utils deps
+
 ## 3.5.5
 
 ### Patch Changes
