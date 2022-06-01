@@ -1,4 +1,4 @@
-import { createHash } from 'crypto';
+import { createHash } from '@apollo/utils.createhash';
 import type { AgentOptions } from '../agent';
 import {
   getStorageSecretUrl,
