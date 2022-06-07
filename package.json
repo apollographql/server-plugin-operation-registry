@@ -34,7 +34,7 @@
     "@changesets/cli": "2.22.0",
     "@jest/types": "28.1.1",
     "@types/jest": "28.1.1",
-    "@types/node": "12.20.54",
+    "@types/node": "12.20.55",
     "apollo-server-core": "3.8.2",
     "graphql-tag": "2.12.6",
     "jest": "28.1.1",
