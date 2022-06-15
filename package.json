@@ -39,7 +39,7 @@
     "graphql-tag": "2.12.6",
     "jest": "28.1.1",
     "jest-junit": "13.2.0",
-    "nock": "13.2.6",
+    "nock": "13.2.7",
     "prettier": "2.7.0",
     "ts-jest": "28.0.5",
     "ts-node": "10.8.1",
