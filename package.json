@@ -35,7 +35,7 @@
     "@jest/types": "28.1.1",
     "@types/jest": "28.1.1",
     "@types/node": "12.20.55",
-    "apollo-server-core": "3.8.2",
+    "apollo-server-core": "3.9.0",
     "graphql-tag": "2.12.6",
     "jest": "28.1.1",
     "jest-junit": "13.2.0",
@@ -61,6 +61,6 @@
   },
   "volta": {
     "node": "16.15.1",
-    "npm": "8.12.1"
+    "npm": "8.12.2"
   }
 }
