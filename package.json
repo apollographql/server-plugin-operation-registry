@@ -35,7 +35,7 @@
     "@jest/types": "28.1.1",
     "@types/jest": "28.1.4",
     "@types/node": "12.20.55",
-    "apollo-server-core": "3.9.0",
+    "apollo-server-core": "3.10.0",
     "graphql-tag": "2.12.6",
     "jest": "28.1.2",
     "jest-junit": "14.0.0",
