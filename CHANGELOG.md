@@ -1,5 +1,11 @@
 # @apollo/server-plugin-operation-registry
 
+## 4.0.0
+
+### Major Changes
+
+- [#131](https://github.com/apollographql/server-plugin-operation-registry/pull/131) [`2e6b87d`](https://github.com/apollographql/server-plugin-operation-registry/commit/2e6b87dd09255d9476e4f3efa10ef953f13b4514) Thanks [@trevor-scheer](https://github.com/trevor-scheer)! - Drop support for Node.js v12
+
 ## 3.5.6
 
 ### Patch Changes
