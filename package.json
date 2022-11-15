@@ -15,13 +15,13 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "engines": {
-    "node": ">=12.0"
+    "node": ">=14.0"
   },
   "scripts": {
     "build": "tsc --build tsconfig.build.json",
     "clean": "git clean -dfqX",
     "install-with-npm-8.5": "npm i -g npm@^8.5.0 && npm i",
-    "postinstall": "npm run build",
+    "prepack": "npm run build",
     "prettier:check": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "publish-changeset": "changeset publish",
