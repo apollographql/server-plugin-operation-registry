@@ -1,5 +1,11 @@
 # @apollo/server-plugin-operation-registry
 
+## 4.0.1
+
+### Patch Changes
+
+- [#133](https://github.com/apollographql/server-plugin-operation-registry/pull/133) [`374fc29`](https://github.com/apollographql/server-plugin-operation-registry/commit/374fc2987af8a77333e657185011c11c95c58d9e) Thanks [@renovate](https://github.com/apps/renovate)! - Update utils packages to v2 (which only drop node v12 support)
+
 ## 4.0.0
 
 ### Major Changes
