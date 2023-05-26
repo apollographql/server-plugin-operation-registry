@@ -28,7 +28,7 @@ const server = new ApolloServer({
   plugins: [
     require("@apollo/server-plugin-operation-registry")({
       forbidUnregisteredOperations: true
-    })
+    })()
   ]
 });
 ```
