@@ -46,8 +46,8 @@
     "typescript": "4.9.5"
   },
   "dependencies": {
-    "@apollo/utils.createhash": "^2.0.0",
-    "@apollo/utils.operationregistrysignature": "^2.0.0",
+    "@apollo/utils.createhash": "^3.0.0",
+    "@apollo/utils.operationregistrysignature": "^3.0.0",
     "apollo-server-caching": "^3.3.0",
     "apollo-server-env": "^4.2.1",
     "apollo-server-errors": "^3.3.1",
